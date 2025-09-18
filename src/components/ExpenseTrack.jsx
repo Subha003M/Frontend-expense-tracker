@@ -11,14 +11,14 @@ export default function ExpenseTrack() {
   const [itemToEdit, setItemToEdit] = useState(null);
 
   useEffect(() => {
-    axios.get("https://project-mca-backend-1.onrender.com/api/getdata")
+    axios.get("https://backend-expense-tracker-3m9m.onrender.com/api/getdata")
       .then((res) => setExpenses(res.data))
       .catch((err) => console.error("Fetch error:", err));
   }, []);
 
   const addExpense = (title, amount, id = null) => {
     if (id) {
-      axios.put(`https://project-mca-backend-1.onrender.com/api/${id}`, { title, amount: Number(amount) })
+      axios.put(`https://backend-expense-tracker-3m9m.onrender.com/api/${id}`, { title, amount: Number(amount) })
         .then((res) => {
           const updatedList = expenses.map((exp) =>
             exp._id === id ? res.data : exp
@@ -28,14 +28,14 @@ export default function ExpenseTrack() {
         })
         .catch((err) => console.error("Update error:", err));
     } else {
-      axios.post("https://project-mca-backend-1.onrender.com/api", { title, amount: Number(amount) })
+      axios.post("https://backend-expense-tracker-3m9m.onrender.com", { title, amount: Number(amount) })
         .then((res) => setExpenses([...expenses, res.data]))
         .catch((err) => console.error("Add error:", err));
     }
   };
 
   const deleteExpense = (id) => {
-    axios.delete(`https://project-mca-backend-1.onrender.com/api/${id}`)
+    axios.delete(`https://backend-expense-tracker-3m9m.onrender.com/api/${id}`)
       .then(() => setExpenses(expenses.filter((exp) => exp._id !== id)))
       .catch((err) => console.error("Delete error:", err));
   };
